@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.example.sami.labyrinthem2ihm.Modele.Bille;
-import com.example.sami.labyrinthem2ihm.Modele.Bloc;
+import com.example.sami.labyrinthem2ihm.Modele.Block;
 import com.example.sami.labyrinthem2ihm.R;
 
 import java.util.List;
@@ -25,12 +25,12 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     SurfaceHolder mSurfaceHolder;
     DrawingThread mThread;
 
-    private List<Bloc> mBlocks = null;
-    public List<Bloc> getBlocks() {
+    private List<Block> mBlocks = null;
+    public List<Block> getBlocks() {
         return mBlocks;
     }
 
-    public void setBlocks(List<Bloc> pBlocks) {
+    public void setBlocks(List<Block> pBlocks) {
         this.mBlocks = pBlocks;
     }
 
@@ -58,7 +58,7 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
        // pCanvas.drawPicture() .drawColor(Color.WHITE);
         if(mBlocks != null) {
             // Dessiner tous les blocs du labyrinthe
-            for(Bloc b : mBlocks) {
+            for(Block b : mBlocks) {
                 switch(b.getType()) {
                     case DEPART:
                         mPaint.setColor(Color.WHITE);

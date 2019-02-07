@@ -3,11 +3,12 @@ package com.example.sami.labyrinthem2ihm.Modele;
 
 import mesmaths.geometrie.base.Vecteur;
 
-public class Courbe implements Mur {
+public class Courbe extends Mur {
     Vecteur debut;
     Vecteur fin;
 
-    public Courbe(Vecteur debut, Vecteur fin, Vecteur ctrlCourbe) {
+    public Courbe(Block.Type pType, int pX, int pY,Vecteur debut, Vecteur fin, Vecteur ctrlCourbe) {
+        super(pType, pX, pY);
         this.debut = debut;
         this.fin = fin;
         CtrlCourbe = ctrlCourbe;

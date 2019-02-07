@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.sami.labyrinthem2ihm.Modele.Bille;
-import com.example.sami.labyrinthem2ihm.Modele.Bloc;
+import com.example.sami.labyrinthem2ihm.Modele.Block;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class LevelsActivity extends AppCompatActivity {
         mView.setBoule(b);
         mEngine.setBoule(b);
 
-        List<Bloc> mList = mEngine.buildLabyrinthe();
+        List<Block> mList = mEngine.buildLabyrinthe();
         mView.setBlocks(mList);
     }
 
