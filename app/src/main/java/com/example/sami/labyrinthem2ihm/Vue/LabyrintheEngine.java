@@ -1,4 +1,4 @@
-package com.example.sami.labyrinthem2ihm;
+package com.example.sami.labyrinthem2ihm.Vue;
 
 import android.app.Service;
 import android.graphics.RectF;
@@ -7,8 +7,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.example.sami.labyrinthem2ihm.Models.Bille;
-import com.example.sami.labyrinthem2ihm.Models.Bloc;
+import com.example.sami.labyrinthem2ihm.Modele.Bille;
+import com.example.sami.labyrinthem2ihm.Modele.Bloc;
 
 import java.util.ArrayList;
 import java.util.List;

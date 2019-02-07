@@ -1,9 +1,7 @@
-package com.example.sami.labyrinthem2ihm.Models;
+package com.example.sami.labyrinthem2ihm.Modele;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.RectF;
-import com.example.sami.labyrinthem2ihm.R;
 
 public class Bille {
     // Rayon de la boule

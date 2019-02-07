@@ -1,4 +1,4 @@
-package com.example.sami.labyrinthem2ihm.Models;
+package com.example.sami.labyrinthem2ihm.Modele;
 
 import android.graphics.RectF;
 

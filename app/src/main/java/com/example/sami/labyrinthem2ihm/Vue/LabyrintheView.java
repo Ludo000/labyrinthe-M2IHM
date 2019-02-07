@@ -1,4 +1,4 @@
-package com.example.sami.labyrinthem2ihm;
+package com.example.sami.labyrinthem2ihm.Vue;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import com.example.sami.labyrinthem2ihm.Models.Bille;
-import com.example.sami.labyrinthem2ihm.Models.Bloc;
+import com.example.sami.labyrinthem2ihm.Modele.Bille;
+import com.example.sami.labyrinthem2ihm.Modele.Bloc;
+import com.example.sami.labyrinthem2ihm.R;
+
 import java.util.List;
 public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callback {
     Bille mBoule;
