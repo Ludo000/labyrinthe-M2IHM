@@ -7,10 +7,12 @@ import java.util.Observable;
 public class Modele extends Observable {
     Bille bille;
     List<Level> levels;
+    int currentLevelID;
 
     public Modele() {
         this.bille = new Bille();
         this.levels = new ArrayList<Level>();
+        currentLevelID = 0;
     }
 
     public Bille getBille() {
@@ -30,5 +32,17 @@ public class Modele extends Observable {
     }
     public void addLevel(Level level){
         this.levels.add(level);
+    }
+
+    public int getCurrentLevelID() {
+        return currentLevelID;
+    }
+
+    public void setCurrentLevelID(int currentLevelID) {
+        this.currentLevelID = currentLevelID;
+    }
+
+    public Level getCurrentLevel(){
+        return this.getLevels().get(this.currentLevelID);
     }
 }

@@ -9,11 +9,15 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.example.sami.labyrinthem2ihm.Modele.Bille;
 import com.example.sami.labyrinthem2ihm.Modele.Block;
+import com.example.sami.labyrinthem2ihm.Modele.Mur;
 import com.example.sami.labyrinthem2ihm.R;
 
 import java.util.List;
 public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callback {
     Bille mBoule;
+
+    VisiteurDessinMur visiteurDessinMur;
+
     public Bille getBoule() {
         return mBoule;
     }
@@ -38,6 +42,7 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
 
     public LabyrintheView(Context pContext) {
         super(pContext);
+
         mSurfaceHolder = getHolder();
         mSurfaceHolder.addCallback(this);
         mThread = new DrawingThread();
@@ -52,26 +57,15 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     protected void onDraw(Canvas pCanvas) {
         // Dessiner le fond de l'écran en premier
         Paint p=new Paint();
+        visiteurDessinMur = new VisiteurDessinMur(pCanvas);
         Bitmap btip=BitmapFactory.decodeResource(getResources(), R.drawable.bg);
         p.setColor(Color.RED);
         pCanvas.drawBitmap(btip, 0, 0, p);
        // pCanvas.drawPicture() .drawColor(Color.WHITE);
-        if(mBlocks != null) {
-            // Dessiner tous les blocs du labyrinthe
-            for(Block b : mBlocks) {
-                switch(b.getType()) {
-                    case DEPART:
-                        mPaint.setColor(Color.WHITE);
-                        break;
-                    case ARRIVEE:
-                        mPaint.setColor(Color.RED);
-                        break;
-                    case TROU:
-                        mPaint.setColor(Color.rgb(48,63,159));
-                        break;
-                }
-                pCanvas.drawRect(b.getRectangle(), mPaint);
-            }
+        // Pour tous les blocs du labyrinthe
+        for(Mur mur : modele.getCurrentLevel().getMurs()) {
+            // On crée un nouveau rectangle pour ne pas modifier celui du bloc
+            mur.accept(visiteurDessinMur);
         }
 
         // Dessiner la boule

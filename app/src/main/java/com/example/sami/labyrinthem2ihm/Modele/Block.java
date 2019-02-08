@@ -2,6 +2,8 @@ package com.example.sami.labyrinthem2ihm.Modele;
 
 import android.graphics.RectF;
 
+import com.example.sami.labyrinthem2ihm.Vue.VisiteurDessinMur;
+
 public class Block extends Mur{
     public enum  Type { TROU, DEPART, ARRIVEE };
 
@@ -13,6 +15,10 @@ public class Block extends Mur{
     public Type getType() {
         return mType;
     }
+
+   public void accept(VisiteurDessinMur visiteurDessinMur){
+        visiteurDessinMur.dessinBlock(this);
+   }
 
     public RectF getRectangle() {
         return mRectangle;

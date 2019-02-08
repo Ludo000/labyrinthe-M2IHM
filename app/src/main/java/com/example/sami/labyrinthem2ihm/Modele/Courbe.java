@@ -1,6 +1,8 @@
 package com.example.sami.labyrinthem2ihm.Modele;
 
 
+import com.example.sami.labyrinthem2ihm.Vue.VisiteurDessinMur;
+
 import mesmaths.geometrie.base.Vecteur;
 
 public class Courbe extends Mur {
@@ -17,6 +19,10 @@ public class Courbe extends Mur {
     public Vecteur getDebut() {
 
         return debut;
+    }
+
+    public void accept(VisiteurDessinMur visiteurDessinMur){
+        visiteurDessinMur.dessinCourbe(this);
     }
 
     public void setDebut(Vecteur debut) {

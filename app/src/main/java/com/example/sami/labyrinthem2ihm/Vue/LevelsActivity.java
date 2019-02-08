@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.sami.labyrinthem2ihm.Controller.Controleur;
 import com.example.sami.labyrinthem2ihm.Modele.Bille;
 import com.example.sami.labyrinthem2ihm.Modele.Block;
 
@@ -20,7 +21,7 @@ public class LevelsActivity extends AppCompatActivity {
     // Le moteur graphique du jeu
     private LabyrintheView mView = null;
     // Le moteur physique du jeu
-    private LabyrintheEngine mEngine = null;
+    private Controleur mEngine = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class LevelsActivity extends AppCompatActivity {
         mView = new LabyrintheView(this);
         setContentView(mView);
 
-        mEngine = new LabyrintheEngine(this);
+        mEngine = new Controleur(this);
 
         Bille b = new Bille();
         mView.setBoule(b);
