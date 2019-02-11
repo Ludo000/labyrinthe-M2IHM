@@ -7,16 +7,25 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.example.sami.labyrinthem2ihm.Controller.Controleur;
 import com.example.sami.labyrinthem2ihm.Modele.Bille;
 import com.example.sami.labyrinthem2ihm.Modele.Block;
+import com.example.sami.labyrinthem2ihm.Modele.Modele;
 import com.example.sami.labyrinthem2ihm.Modele.Mur;
 import com.example.sami.labyrinthem2ihm.R;
 
 import java.util.List;
-public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callback {
+import java.util.Observable;
+import java.util.Observer;
+
+public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callback, Observer {
     Bille mBoule;
 
     VisiteurDessinMur visiteurDessinMur;
+
+    public Modele modele;
+
 
     public Bille getBoule() {
         return mBoule;
@@ -29,13 +38,13 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     SurfaceHolder mSurfaceHolder;
     DrawingThread mThread;
 
-    private List<Block> mBlocks = null;
-    public List<Block> getBlocks() {
-        return mBlocks;
+    private List<Mur> murs = null;
+    public List<Mur> getMurs() {
+        return murs;
     }
 
-    public void setBlocks(List<Block> pBlocks) {
-        this.mBlocks = pBlocks;
+    public void setBlocks(List<Mur> mur) {
+        this.murs = mur;
     }
 
     Paint mPaint;
@@ -47,6 +56,9 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
         mSurfaceHolder.addCallback(this);
         mThread = new DrawingThread();
 
+        modele = new Modele();
+
+
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL);
 
@@ -56,17 +68,15 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     @Override
     protected void onDraw(Canvas pCanvas) {
         // Dessiner le fond de l'écran en premier
-        Paint p=new Paint();
+        Paint p= new Paint();
         visiteurDessinMur = new VisiteurDessinMur(pCanvas);
         Bitmap btip=BitmapFactory.decodeResource(getResources(), R.drawable.bg);
         p.setColor(Color.RED);
         pCanvas.drawBitmap(btip, 0, 0, p);
        // pCanvas.drawPicture() .drawColor(Color.WHITE);
         // Pour tous les blocs du labyrinthe
-        for(Mur mur : modele.getCurrentLevel().getMurs()) {
-            // On crée un nouveau rectangle pour ne pas modifier celui du bloc
-            mur.accept(visiteurDessinMur);
-        }
+        // On crée un nouveau rectangle pour ne pas modifier celui du bloc
+        for(Mur mur : modele.getCurrentLevel().getMurs()) { mur.accept(visiteurDessinMur);}
 
         // Dessiner la boule
         if(mBoule != null) {
@@ -102,6 +112,11 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
                 retry = false;
             } catch (InterruptedException e) {}
         }
+
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
 
     }
 

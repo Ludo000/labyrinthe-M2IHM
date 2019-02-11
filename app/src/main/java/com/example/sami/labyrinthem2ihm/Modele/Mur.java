@@ -5,11 +5,15 @@ import com.example.sami.labyrinthem2ihm.Vue.VisiteurDessinMur;
 import mesmaths.geometrie.base.Vecteur;
 
 public abstract class Mur{
-    Vecteur position = null;
-    Block.Type pType;
+    private Vecteur position;
+    private Block.Type pType;
 
-    public Mur(Block.Type pType, int pX, int pY) {
-        this.position = new Vecteur(pX, pY);
+    private double pX, pY;
+
+    public Mur(Block.Type pType, double pX, double pY) {
+        this.pX=pX;
+        this.pY=pY;
+        this.position = new Vecteur(this.pX, this.pY);
         this.pType= pType;
     }
 

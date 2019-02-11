@@ -17,12 +17,12 @@ public class VisiteurDessinMur {
         this.paint.setStyle(Paint.Style.FILL);
     }
 
-    public void dessinBlock(Block block){
+    public void dessin(Block block){
 
         this.canvas.drawRect(block.getRectangle(), this.paint);
     }
 
-    public void dessinCourbe(Courbe courbe){
+    public void dessin(Courbe courbe){
 
     }
 }

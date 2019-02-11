@@ -22,7 +22,7 @@ public class Courbe extends Mur {
     }
 
     public void accept(VisiteurDessinMur visiteurDessinMur){
-        visiteurDessinMur.dessinCourbe(this);
+        visiteurDessinMur.dessin(this);
     }
 
     public void setDebut(Vecteur debut) {

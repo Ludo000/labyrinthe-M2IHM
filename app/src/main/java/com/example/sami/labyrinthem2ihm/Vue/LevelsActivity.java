@@ -9,8 +9,13 @@ import android.os.Bundle;
 import com.example.sami.labyrinthem2ihm.Controller.Controleur;
 import com.example.sami.labyrinthem2ihm.Modele.Bille;
 import com.example.sami.labyrinthem2ihm.Modele.Block;
+import com.example.sami.labyrinthem2ihm.Modele.Level;
+import com.example.sami.labyrinthem2ihm.Modele.Modele;
+import com.example.sami.labyrinthem2ihm.Modele.Mur;
 
 import java.util.List;
+
+import static com.example.sami.labyrinthem2ihm.Modele.Block.Type.TROU;
 
 public class LevelsActivity extends AppCompatActivity {
     // Identifiant de la boîte de dialogue de victoire
@@ -21,7 +26,7 @@ public class LevelsActivity extends AppCompatActivity {
     // Le moteur graphique du jeu
     private LabyrintheView mView = null;
     // Le moteur physique du jeu
-    private Controleur mEngine = null;
+    private Controleur controleur = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,26 +35,24 @@ public class LevelsActivity extends AppCompatActivity {
         mView = new LabyrintheView(this);
         setContentView(mView);
 
-        mEngine = new Controleur(this);
-
         Bille b = new Bille();
         mView.setBoule(b);
-        mEngine.setBoule(b);
+        controleur.setBoule(b);
 
-        List<Block> mList = mEngine.buildLabyrinthe();
+        List<Mur> mList = controleur.get_modele().getCurrentLevel().getMurs();
         mView.setBlocks(mList);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mEngine.resume();
+        controleur.resume();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mEngine.stop();
+        controleur.stop();
     }
 
     @Override
@@ -64,8 +67,8 @@ public class LevelsActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // L'utilisateur peut recommencer s'il le veut
-                                mEngine.reset();
-                                mEngine.resume();
+                                controleur.reset();
+                                controleur.resume();
                             }
                         });
                 break;
@@ -77,8 +80,8 @@ public class LevelsActivity extends AppCompatActivity {
                         .setNeutralButton("Recommencer", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mEngine.reset();
-                                mEngine.resume();
+                                controleur.reset();
+                                controleur.resume();
                             }
                         });
         }
@@ -88,7 +91,7 @@ public class LevelsActivity extends AppCompatActivity {
     @Override
     public void onPrepareDialog(int id, Dialog box) {
         // A chaque fois qu'une boîte de dialogue est lancée, on arrête le moteur physique
-        mEngine.stop();
+        controleur.stop();
     }
 }
 

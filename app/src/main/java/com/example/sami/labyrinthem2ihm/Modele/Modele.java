@@ -23,7 +23,7 @@ public class Modele extends Observable {
         this.bille = bille;
     }
 
-    public List<Level> getLevels() {
+    private List<Level> getLevels() {
         return levels;
     }
 
