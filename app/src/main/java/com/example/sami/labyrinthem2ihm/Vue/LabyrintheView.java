@@ -1,40 +1,28 @@
-package com.example.sami.labyrinthem2ihm;
+package com.example.sami.labyrinthem2ihm.Vue;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import com.example.sami.labyrinthem2ihm.Models.Bille;
-import com.example.sami.labyrinthem2ihm.Models.Bloc;
-import java.util.List;
-public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callback {
-    Bille mBoule;
-    public Bille getBoule() {
-        return mBoule;
-    }
 
-    public void setBoule(Bille pBoule) {
-        this.mBoule = pBoule;
-    }
+import com.example.sami.labyrinthem2ihm.Modele.Bille;
+import com.example.sami.labyrinthem2ihm.Modele.Modele;
+import com.example.sami.labyrinthem2ihm.Modele.Mur;
+import com.example.sami.labyrinthem2ihm.R;
+public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callback {
+    VisiteurDessinMur visiteurDessinMur;
+    public Modele modele;
 
     SurfaceHolder mSurfaceHolder;
     DrawingThread mThread;
 
-    private List<Bloc> mBlocks = null;
-    public List<Bloc> getBlocks() {
-        return mBlocks;
-    }
-
-    public void setBlocks(List<Bloc> pBlocks) {
-        this.mBlocks = pBlocks;
-    }
-
     Paint mPaint;
 
-    public LabyrintheView(Context pContext) {
+    public LabyrintheView(Context pContext, Modele modele) {
         super(pContext);
         mSurfaceHolder = getHolder();
         mSurfaceHolder.addCallback(this);
@@ -42,41 +30,30 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
 
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL);
-
-        mBoule = new Bille();
+        this.modele= modele;
     }
-
     @Override
     protected void onDraw(Canvas pCanvas) {
         // Dessiner le fond de l'écran en premier
-        Paint p=new Paint();
+        Paint p= new Paint();
+        visiteurDessinMur = new VisiteurDessinMur(pCanvas, mPaint);
         Bitmap btip=BitmapFactory.decodeResource(getResources(), R.drawable.bg);
         p.setColor(Color.RED);
         pCanvas.drawBitmap(btip, 0, 0, p);
-       // pCanvas.drawPicture() .drawColor(Color.WHITE);
-        if(mBlocks != null) {
-            // Dessiner tous les blocs du labyrinthe
-            for(Bloc b : mBlocks) {
-                switch(b.getType()) {
-                    case DEPART:
-                        mPaint.setColor(Color.WHITE);
-                        break;
-                    case ARRIVEE:
-                        mPaint.setColor(Color.RED);
-                        break;
-                    case TROU:
-                        mPaint.setColor(Color.rgb(48,63,159));
-                        break;
-                }
-                pCanvas.drawRect(b.getRectangle(), mPaint);
-            }
+
+        for(Mur mur : modele.getCurrentLevel().getMurs()) {
+            mur.accept(visiteurDessinMur);
         }
 
         // Dessiner la boule
-        if(mBoule != null) {
+        if(modele.getBille() != null) {
 
-            mPaint.setColor(mBoule.getCouleur());
-            pCanvas.drawCircle(mBoule.getX(), mBoule.getY(), Bille.RAYON, mPaint);
+            mPaint.setColor(modele.getBille().getCouleur());
+            pCanvas.drawCircle(modele.getBille().getX(), modele.getBille().getY(), Bille.RAYON, mPaint);
+            Log.d("coor===>", (modele.getBille().getX() + ", "+ modele.getBille().getY()));
+        }
+        else {
+            Log.d("TEST===>", "ERRORR");
         }
     }
 
@@ -90,9 +67,9 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
         mThread.keepDrawing = true;
         mThread.start();
         // Quand on crée la boule, on lui indique les coordonnées de l'écran
-        if(mBoule != null ) {
-            this.mBoule.setHeight(getHeight());
-            this.mBoule.setWidth(getWidth());
+        if(modele.getBille() != null ) {
+            modele.getBille().setHeight(getHeight());
+            modele.getBille().setWidth(getWidth());
         }
     }
 

@@ -1,12 +1,18 @@
-package com.example.sami.labyrinthem2ihm.Models;
+package com.example.sami.labyrinthem2ihm.Modele;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.RectF;
-import com.example.sami.labyrinthem2ihm.R;
+
+import mesmaths.geometrie.base.Vecteur;
 
 public class Bille {
     // Rayon de la boule
+
+    public Bille(float mX, float mY) {
+        this.mX = mX;
+        this.mY = mY;
+    }
+
     public static final int RAYON = 20;
 
     // Couleur de la boule
@@ -35,7 +41,7 @@ public class Bille {
     }
 
     // Le rectangle de collision
-    private RectF mRectangle = null;
+    private RectF mRectangle= new RectF();
 
     // Coordonnées en x
     private float mX;
@@ -74,17 +80,20 @@ public class Bille {
     }
 
     // Vitesse sur l'axe x
-    private float mSpeedX = 0;
+    public float mSpeedX = 0;
     // Utilisé quand on rebondit sur les murs horizontaux
     public void changeXSpeed() {
         mSpeedX = -mSpeedX;
     }
 
     // Vitesse sur l'axe y
-    private float mSpeedY = 0;
+    public float mSpeedY = 0;
     // Utilisé quand on rebondit sur les murs verticaux
     public void changeYSpeed() {
         mSpeedY = -mSpeedY;
+    }
+    public Vecteur getVecteurVitesse(){
+        return new Vecteur(mSpeedX, mSpeedY);
     }
 
     // Taille de l'écran en hauteur
@@ -99,12 +108,6 @@ public class Bille {
         this.mWidth = pWidth;
     }
 
-
-    public Bille() {
-
-        mRectangle = new RectF();
-    }
-
     // Mettre à jour les coordonnées de la boule
     public RectF putXAndY(float pX, float pY) {
         mSpeedX += pX / COMPENSATEUR;
@@ -112,16 +115,13 @@ public class Bille {
             mSpeedX = MAX_SPEED;
         if(mSpeedX < -MAX_SPEED)
             mSpeedX = -MAX_SPEED;
-
         mSpeedY += pY / COMPENSATEUR;
         if(mSpeedY > MAX_SPEED)
             mSpeedY = MAX_SPEED;
         if(mSpeedY < -MAX_SPEED)
             mSpeedY = -MAX_SPEED;
-
         setPosX(mX + mSpeedY);
         setPosY(mY + mSpeedX);
-
         // Met à jour les coordonnées du rectangle de collision
         mRectangle.set(mX - RAYON, mY - RAYON, mX + RAYON, mY + RAYON);
 

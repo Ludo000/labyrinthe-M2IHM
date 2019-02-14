@@ -1,14 +1,14 @@
-package com.example.sami.labyrinthem2ihm;
+package com.example.sami.labyrinthem2ihm.Vue;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.sami.labyrinthem2ihm.Models.Bille;
-import com.example.sami.labyrinthem2ihm.Models.Bloc;
+import com.example.sami.labyrinthem2ihm.Modele.Bille;
+import com.example.sami.labyrinthem2ihm.Modele.Block;
+import com.example.sami.labyrinthem2ihm.Modele.Modele;
 
 import java.util.List;
 
@@ -20,24 +20,23 @@ public class LevelsActivity extends AppCompatActivity {
 
     // Le moteur graphique du jeu
     private LabyrintheView mView = null;
+
+    Modele modele;
     // Le moteur physique du jeu
     private LabyrintheEngine mEngine = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mView = new LabyrintheView(this);
+        modele = new Modele();
+        mView = new LabyrintheView(this, this.modele);
         setContentView(mView);
 
-        mEngine = new LabyrintheEngine(this);
+        mEngine = new LabyrintheEngine(this, this.modele);
 
-        Bille b = new Bille();
-        mView.setBoule(b);
-        mEngine.setBoule(b);
 
-        List<Bloc> mList = mEngine.buildLabyrinthe();
-        mView.setBlocks(mList);
+       // List<Block> mList = mEngine.buildLabyrinthe();
+    //    mView.setBlocks(modele.getCurrentLevel().getMurs());
     }
 
     @Override
