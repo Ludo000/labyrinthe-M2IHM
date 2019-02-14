@@ -19,4 +19,8 @@ public class Level {
     public void setMurs(List<Mur> murs) {
         this.murs = murs;
     }
+
+    public void setBlocks(List<Mur> mur) {
+        this.murs = mur;
+    }
 }

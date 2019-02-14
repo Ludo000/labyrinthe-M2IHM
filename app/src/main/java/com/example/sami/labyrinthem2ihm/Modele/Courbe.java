@@ -6,8 +6,8 @@ import com.example.sami.labyrinthem2ihm.Vue.VisiteurDessinMur;
 import mesmaths.geometrie.base.Vecteur;
 
 public class Courbe extends Mur {
-    Vecteur debut;
-    Vecteur fin;
+    private Vecteur debut;
+    private Vecteur fin;
 
     public Courbe(Block.Type pType, int pX, int pY,Vecteur debut, Vecteur fin, Vecteur ctrlCourbe) {
         super(pType, pX, pY);
@@ -45,6 +45,6 @@ public class Courbe extends Mur {
         CtrlCourbe = ctrlCourbe;
     }
 
-    Vecteur CtrlCourbe;
+    private Vecteur CtrlCourbe;
 
 }

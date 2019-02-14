@@ -29,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     EcouteurBouttonLevel1 ecouteurBouttonLevel1;
     EcouteurBouttonLevel2 ecouteurBouttonLevel2;
     EcouteurBouttonLevel3 ecouteurBouttonLevel3;
+    private Vue vue;
+
+
+    public Controleur controleur;
     private static int SPLASH_TIME_OUT = 3000;
 
     @Override
@@ -36,12 +40,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        vue = new Vue();
+
         btnLevel1 = findViewById(R.id.btn_level1);
         btnLevel2 = findViewById(R.id.btn_level2);
         btnLevel3 = findViewById(R.id.btn_level3);
 
-        Modele modele =new Modele();
-        Controleur controleur= new Controleur(modele, this);
+
 
         this.ecouteurBouttonLevel1 = new EcouteurBouttonLevel1(this);
         btnLevel1.setOnClickListener(this.ecouteurBouttonLevel1);

@@ -5,6 +5,12 @@ import android.graphics.RectF;
 
 public class Bille {
     // Rayon de la boule
+
+    public Bille(float mX, float mY) {
+        this.mX = mX;
+        this.mY = mY;
+    }
+
     public static final int RAYON = 20;
 
     // Couleur de la boule
@@ -33,7 +39,7 @@ public class Bille {
     }
 
     // Le rectangle de collision
-    private RectF mRectangle = null;
+    private RectF mRectangle= new RectF();
 
     // Coordonnées en x
     private float mX;
@@ -97,15 +103,9 @@ public class Bille {
         this.mWidth = pWidth;
     }
 
-
-    public Bille() {
-
-        mRectangle = new RectF();
-    }
-
     // Mettre à jour les coordonnées de la boule
     public RectF putXAndY(float pX, float pY) {
-        mSpeedX += pX / COMPENSATEUR;
+       /* mSpeedX += pX / COMPENSATEUR;
         if(mSpeedX > MAX_SPEED)
             mSpeedX = MAX_SPEED;
         if(mSpeedX < -MAX_SPEED)
@@ -120,7 +120,9 @@ public class Bille {
         setPosX(mX + mSpeedY);
         setPosY(mY + mSpeedX);
 
-        // Met à jour les coordonnées du rectangle de collision
+        // Met à jour les coordonnées du rectangle de collision*/
+       mX=pX;
+       mY=pY;
         mRectangle.set(mX - RAYON, mY - RAYON, mX + RAYON, mY + RAYON);
 
         return mRectangle;

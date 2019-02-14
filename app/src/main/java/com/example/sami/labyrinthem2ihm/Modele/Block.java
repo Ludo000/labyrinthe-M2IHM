@@ -4,6 +4,8 @@ import android.graphics.RectF;
 
 import com.example.sami.labyrinthem2ihm.Vue.VisiteurDessinMur;
 
+import java.util.List;
+
 public class Block extends Mur{
     public enum  Type { TROU, DEPART, ARRIVEE };
 
@@ -29,5 +31,6 @@ public class Block extends Mur{
         this.mType = pType;
         this.mRectangle = new RectF((float) (pX * SIZE), (float) (pY * SIZE), (float) ((pX + 1) * SIZE), (float) ((pY + 1) * SIZE));
     }
+
 }
 

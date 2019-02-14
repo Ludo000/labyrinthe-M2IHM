@@ -25,44 +25,28 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     VisiteurDessinMur visiteurDessinMur;
 
     public Modele modele;
-
-
-    public Bille getBoule() {
-        return mBoule;
-    }
-
-    public void setBoule(Bille pBoule) {
-        this.mBoule = pBoule;
-    }
-
     SurfaceHolder mSurfaceHolder;
     DrawingThread mThread;
+    Canvas canvas;
 
-    private List<Mur> murs = null;
-    public List<Mur> getMurs() {
-        return murs;
-    }
-
-    public void setBlocks(List<Mur> mur) {
-        this.murs = mur;
-    }
+    public List<Mur> murs;
+    public Controleur controleur;
 
     Paint mPaint;
 
-    public LabyrintheView(Context pContext) {
-        super(pContext);
-
+    public LabyrintheView(Context pContext, Controleur controleur) {
+       super(pContext);
+        this.controleur = controleur;
         mSurfaceHolder = getHolder();
         mSurfaceHolder.addCallback(this);
         mThread = new DrawingThread();
 
         modele = new Modele();
 
-
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL);
 
-        mBoule = new Bille();
+        mBoule = modele.getBille();
     }
 
     @Override
@@ -76,7 +60,9 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
        // pCanvas.drawPicture() .drawColor(Color.WHITE);
         // Pour tous les blocs du labyrinthe
         // On crée un nouveau rectangle pour ne pas modifier celui du bloc
-        for(Mur mur : modele.getCurrentLevel().getMurs()) { mur.accept(visiteurDessinMur);}
+        for(Mur mur : modele.getCurrentLevel().getMurs()) {
+            mur.accept(visiteurDessinMur);
+        }
 
         // Dessiner la boule
         if(mBoule != null) {
@@ -88,7 +74,7 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
 
     @Override
     public void surfaceChanged(SurfaceHolder pHolder, int pFormat, int pWidth, int pHeight) {
-        //
+
     }
 
     @Override
@@ -117,7 +103,10 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
 
     @Override
     public void update(Observable observable, Object o) {
+    }
 
+    public Canvas getCanvas(){
+        return canvas;
     }
 
     private class DrawingThread extends Thread {
@@ -125,7 +114,6 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
 
         @Override
         public void run() {
-            Canvas canvas;
             while (keepDrawing) {
                 canvas = null;
 
